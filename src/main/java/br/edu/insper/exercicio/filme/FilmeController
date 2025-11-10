@@ -1,0 +1,34 @@
+package br.edu.insper.exercicio.filmes;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/filmes")
+public class FilmeController {
+
+    @Autowired
+    private FilmeService filmeService;
+
+    @GetMapping
+    public List<Filme> listar() {
+        return filmeService.listarFilmes();
+    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public Filme criar(@RequestBody Filme filme) {
+        return filmeService.criarFilme(filme);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deletar(@PathVariable Integer id) {
+        filmeService.deletarFilme(id);
+    }
+}
+
+
